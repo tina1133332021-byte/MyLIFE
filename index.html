@@ -11,6 +11,11 @@
 .auth-wrap{max-width:480px;margin:28px auto;padding:20px}.auth-card{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}.auth-card h2{margin:0 0 8px;font-size:20px}.auth-card p{font-size:12px;color:var(--muted);line-height:1.6}.auth-card .field input{width:100%}.auth-status{font-size:12px;line-height:1.6;color:var(--muted);margin-top:10px;min-height:20px}.auth-actions{display:flex;gap:8px}.auth-actions button{flex:1}.hidden{display:none!important}
 @media(min-width:600px){.app{padding-top:26px}.grid{grid-template-columns:repeat(4,1fr)}.hero h1{font-size:28px}}
 .chat-history{max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin:14px 0}.chat-history .bubble{max-width:92%}
+
+.bottom{overflow-x:auto;scrollbar-width:none}
+.bottom::-webkit-scrollbar{display:none}
+.bottom .nav{min-width:max-content;display:flex;gap:4px}
+.bottom .nav button{min-width:58px;flex:0 0 auto}
 </style></head>
 <body>
 <section class="auth-wrap" id="authPanel"><div class="auth-card">
@@ -108,7 +113,7 @@
 <section id="worklogs" class="page"><h1 class="page-title">工作紀錄</h1><p class="page-desc">記下每天做了什麼、花了多少時間，累積成可回顧的工作資料。</p><div class="card"><div class="sub">本週紀錄</div><div class="money" id="worklogWeekCount">0 筆</div><div class="sub" id="worklogWeekMinutes">累計 0 分鐘</div><div class="divider"></div><button class="primary" onclick="openWorkLog()">＋ 新增工作紀錄</button></div><div class="section"><div class="section-head"><h2>所有工作紀錄</h2><span class="sub">依日期排序</span></div><div class="card" id="worklogList"></div></div></section>
 <section id="reports" class="page"><h1 class="page-title">每週回顧</h1><p class="page-desc">根據目前已保存的資料產生簡易摘要。</p><div class="card" id="reportContent"></div><button class="primary" style="margin-top:12px" onclick="renderReport()">重新整理報告</button></section>
 </main>
-<nav class="bottom"><div class="nav"><button class="active" data-page="home" onclick="showPage('home',this)"><span>⌂</span>首頁</button><button data-page="tasks" onclick="showPage('tasks',this)"><span>☷</span>任務</button><button data-page="chat" onclick="showPage('chat',this)"><span>✧</span>管家</button><button data-page="reports" onclick="showPage('reports',this)"><span>▥</span>報告</button><button data-page="finance" onclick="showPage('finance',this)"><span>◉</span>財務</button><button data-page="worklogs" onclick="showPage('worklogs',this)"><span>▤</span>工作</button></div></nav>
+<nav class="bottom"><div class="nav"><button class="active" data-page="home" onclick="showPage('home',this)"><span>⌂</span>首頁</button><button data-page="tasks" onclick="showPage('tasks',this)"><span>☷</span>任務</button><button data-page="chat" onclick="showPage('chat',this)"><span>✧</span>管家</button><button data-page="marketing" onclick="showPage('marketing',this)"><span>📣</span>行銷</button><button data-page="lifestyle" onclick="showPage('lifestyle',this)"><span>🗓</span>生活</button><button data-page="fandom" onclick="showPage('fandom',this)"><span>🎫</span>追星</button><button data-page="romance" onclick="showPage('romance',this)"><span>💗</span>戀愛</button><button data-page="reports" onclick="showPage('reports',this)"><span>▥</span>報告</button><button data-page="finance" onclick="showPage('finance',this)"><span>◉</span>財務</button><button data-page="worklogs" onclick="showPage('worklogs',this)"><span>▤</span>工作</button></div></nav>
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 // Supabase 前端連線設定：只填 Project URL 與 Publishable key；絕對不要放 Secret/service_role key。
