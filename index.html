@@ -19,7 +19,21 @@
 <div class="field"><label>Email</label><input id="authEmail" type="email" autocomplete="email" placeholder="你的 Email"></div>
 <div class="field"><label>密碼</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="至少 6 個字元"></div>
 <div class="auth-actions"><button class="primary" onclick="signIn()">登入</button><button class="secondary" onclick="signUp()">建立帳號</button></div>
+<p style="text-align:right;margin:10px 0 0"><a href="#" onclick="showForgotPassword();return false" style="font-size:12px;color:var(--blue)">忘記密碼？</a></p>
 <div class="auth-status" id="authStatus">請先設定 Supabase 連線資訊。</div>
+<div id="forgotPanel" class="hidden">
+  <div class="divider"></div><h2>重設登入密碼</h2>
+  <p>輸入註冊時使用的 Email，我們會寄送密碼重設連結。</p>
+  <div class="field"><label>Email</label><input id="resetEmail" type="email" autocomplete="email" placeholder="你的 Email"></div>
+  <div class="auth-actions"><button class="primary" onclick="sendPasswordReset()">寄送重設信</button><button class="secondary" onclick="showLoginPanel()">返回登入</button></div>
+</div>
+<div id="newPasswordPanel" class="hidden">
+  <div class="divider"></div><h2>設定新密碼</h2>
+  <p>請輸入至少 6 個字元的新密碼。</p>
+  <div class="field"><label>新密碼</label><input id="newPassword" type="password" autocomplete="new-password" placeholder="至少 6 個字元"></div>
+  <div class="field"><label>再次輸入新密碼</label><input id="confirmNewPassword" type="password" autocomplete="new-password" placeholder="再次輸入新密碼"></div>
+  <button class="primary" style="width:100%;padding:12px" onclick="updatePassword()">儲存新密碼</button>
+</div>
 </div></section>
 <main class="app hidden" id="mainApp">
 <header class="top"><div class="brand">My Life OS<small>PERSONAL LIFE MANAGEMENT</small></div><button class="secondary" id="accountButton" onclick="signOut()" style="font-size:11px">登出</button></header>
@@ -51,7 +65,54 @@ async function initAuth(){
   const {data,error}=await supabaseClient.auth.getSession();
   if(error){authMessage('連線檢查失敗：'+error.message);return;}
   if(data.session){showSignedIn(data.session.user);}else{document.getElementById('authPanel').classList.remove('hidden');document.getElementById('mainApp').classList.add('hidden');authMessage('連線成功，請登入或建立帳號。');}
-  supabaseClient.auth.onAuthStateChange((_event,session)=>{if(session)showSignedIn(session.user);else{currentUser=null;cloudReady=false;loadingUserId=null;document.getElementById('authPanel').classList.remove('hidden');document.getElementById('mainApp').classList.add('hidden');}});
+  supabaseClient.auth.onAuthStateChange((event,session)=>{
+    if(event==='PASSWORD_RECOVERY'){
+      document.getElementById('authPanel').classList.remove('hidden');
+      document.getElementById('mainApp').classList.add('hidden');
+      document.getElementById('forgotPanel').classList.add('hidden');
+      document.getElementById('newPasswordPanel').classList.remove('hidden');
+      authMessage('驗證成功，請設定新密碼。');
+      return;
+    }
+    if(session)showSignedIn(session.user);
+    else{currentUser=null;cloudReady=false;loadingUserId=null;document.getElementById('authPanel').classList.remove('hidden');document.getElementById('mainApp').classList.add('hidden');}
+  });
+}
+function showForgotPassword(){
+  document.getElementById('forgotPanel').classList.remove('hidden');
+  document.getElementById('newPasswordPanel').classList.add('hidden');
+  document.getElementById('resetEmail').value=document.getElementById('authEmail').value.trim();
+  authMessage('請輸入註冊帳號的 Email。');
+}
+function showLoginPanel(){
+  document.getElementById('forgotPanel').classList.add('hidden');
+  document.getElementById('newPasswordPanel').classList.add('hidden');
+  authMessage('請輸入 Email 和密碼登入。');
+}
+async function sendPasswordReset(){
+  if(!supabaseClient)return authMessage('尚未設定 Supabase 連線資訊。');
+  const email=document.getElementById('resetEmail').value.trim();
+  if(!email)return authMessage('請先輸入註冊時使用的 Email。');
+  authMessage('正在寄送密碼重設信…');
+  const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:'https://tina1133332021-byte.github.io/MyLIFE/'});
+  if(error)authMessage('寄送失敗：'+error.message);
+  else authMessage('重設信已寄出，請到信箱開啟最新一封信。');
+}
+async function updatePassword(){
+  const password=document.getElementById('newPassword').value;
+  const confirm=document.getElementById('confirmNewPassword').value;
+  if(password.length<6)return authMessage('新密碼至少需要 6 個字元。');
+  if(password!==confirm)return authMessage('兩次輸入的密碼不一致，請重新確認。');
+  authMessage('正在更新密碼…');
+  const {error}=await supabaseClient.auth.updateUser({password});
+  if(error)authMessage('密碼更新失敗：'+error.message);
+  else{
+    document.getElementById('newPasswordPanel').classList.add('hidden');
+    document.getElementById('forgotPanel').classList.add('hidden');
+    document.getElementById('authPassword').value='';
+    authMessage('密碼已更新，請使用新密碼登入。');
+    await supabaseClient.auth.signOut();
+  }
 }
 let currentUser=null, cloudReady=false, loadingUserId=null;
 async function showSignedIn(user){
