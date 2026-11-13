@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#24364b">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="My Life OS">
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>My Life OS｜個人生活總部</title>
+<title>My Life OS v9｜AI 資料操作版</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--navy:#24364b;--navy2:#314962;--bg:#f4f6f8;--card:#fff;--ink:#202b38;--muted:#778391;--line:#e7ebef;--blue:#52749a;--green:#4e8068;--gold:#a77c3d;--rose:#a35f7c;--shadow:0 8px 28px rgba(32,48,65,.07)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(84px + env(safe-area-inset-bottom))}.app{max-width:760px;margin:auto;padding:18px 16px 24px}.top{display:flex;align-items:center;justify-content:space-between;margin:6px 2px 18px}.brand{font-weight:800;letter-spacing:.3px;font-size:20px}.brand small{display:block;font-size:10px;letter-spacing:1.7px;color:var(--muted);font-weight:600;margin-top:3px}.avatar{width:38px;height:38px;border-radius:50%;background:#e5ebf1;color:var(--navy);display:grid;place-items:center;font-weight:700}.hero{background:linear-gradient(135deg,#24364b,#3b5873);color:white;padding:22px;border-radius:22px;box-shadow:var(--shadow)}.eyebrow{font-size:10px;letter-spacing:1.5px;color:#c5d2df}.hero h1{font-size:24px;margin:9px 0 6px}.hero p{margin:0;color:#d6e0e9;font-size:13px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:20px}.stat{background:#ffffff18;border:1px solid #ffffff20;border-radius:13px;padding:11px}.stat b{display:block;font-size:23px}.stat span{font-size:11px;color:#d6e0e9}.section{margin-top:23px}.section-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 11px}.section-head h2{font-size:16px;margin:0}.sub{font-size:11px;color:var(--muted)}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:14px;box-shadow:0 3px 14px rgba(32,48,65,.025)}.task{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}.task:last-child{border:0;padding-bottom:0}.check{width:21px;height:21px;border:1.5px solid #c7d0d9;border-radius:7px;flex:none;display:grid;place-items:center;background:white;color:white}.check.done{background:var(--green);border-color:var(--green)}.task-main{min-width:0;flex:1}.task-title{font-size:13px;font-weight:650;overflow-wrap:anywhere}.task-meta{font-size:10px;color:var(--muted);margin-top:4px}.pill{font-size:10px;padding:4px 8px;border-radius:20px;background:#f1f3f5;color:#697684;white-space:nowrap}.high{background:#f9e9e8;color:#a34f4a}.medium{background:#fbf2e4;color:#956c2f}.low{background:#eaf1eb;color:#4e8068}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.tile{background:white;border:1px solid var(--line);border-radius:16px;padding:15px 8px;text-align:center;cursor:pointer;box-shadow:0 3px 14px rgba(32,48,65,.025)}.tile .ico{width:38px;height:38px;border-radius:13px;background:#edf1f5;margin:0 auto 8px;display:grid;place-items:center;font-size:19px}.tile b{font-size:12px}.tile small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.chatbox{display:flex;gap:8px;margin-top:10px}.chatbox input,.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fbfcfd;border-radius:12px;padding:12px;font:inherit;font-size:13px;outline:none}.chatbox button,.primary{border:0;border-radius:12px;background:var(--navy);color:white;padding:0 17px;font-weight:650}.notice{font-size:11px;color:var(--muted);line-height:1.6;margin-top:9px}.bottom{position:fixed;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:9px 10px calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:10}.nav{width:min(760px,100%);display:grid;grid-template-columns:repeat(6,1fr)}.nav button{border:0;background:none;color:#8a95a0;font-size:10px;padding:5px 0;display:grid;gap:4px;justify-items:center}.nav button span{font-size:19px}.nav button.active{color:var(--navy);font-weight:750}.page{display:none}.page.active{display:block}.page-title{font-size:23px;margin:9px 0 5px}.page-desc{color:var(--muted);font-size:12px;margin:0 0 18px}.actions{display:flex;gap:8px;flex-wrap:wrap}.primary{padding:11px 15px;font-size:12px;cursor:pointer}.secondary{padding:10px 14px;border:1px solid var(--line);background:white;border-radius:12px;font-size:12px;color:var(--ink)}.field{margin:12px 0}.field label{display:block;font-size:11px;color:var(--muted);margin:0 0 6px}.field textarea{min-height:75px;resize:vertical}.list-row{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:13px}.list-row:last-child{border:0}.empty{padding:25px 10px;text-align:center;color:var(--muted);font-size:12px}.bubble{padding:12px 13px;border-radius:14px;background:#eef2f6;font-size:13px;line-height:1.6;margin:9px 0;white-space:pre-wrap}.bubble.user{background:#e5edf5;margin-left:35px}.bubble.ai{margin-right:20px}.tag{font-size:10px;color:var(--blue);font-weight:700}.modal{position:fixed;inset:0;background:#17243277;display:none;align-items:flex-end;justify-content:center;z-index:20}.modal.show{display:flex}.sheet{background:white;width:min(760px,100%);border-radius:22px 22px 0 0;padding:22px 18px calc(24px + env(safe-area-inset-bottom));max-height:90vh;overflow:auto}.sheet h3{margin:0 0 15px}.sheet .primary{width:100%;margin-top:9px}.toast{position:fixed;bottom:95px;left:50%;transform:translateX(-50%);background:#24364b;color:white;padding:10px 15px;border-radius:20px;font-size:12px;display:none;z-index:30}.muted{color:var(--muted)}.money{font-size:25px;font-weight:800}.report-block{margin:12px 0}.report-block b{font-size:12px}.report-block p{font-size:12px;color:#647180;line-height:1.7;margin:5px 0}.divider{height:1px;background:var(--line);margin:12px 0}
@@ -47,7 +47,7 @@
 <div class="hero"><div class="eyebrow" id="todayDate">PERSONAL DASHBOARD</div><h1>今天，想先處理什麼？</h1><p>工作、生活與重要事項，都從這裡開始。</p><div class="stats"><div class="stat"><b id="taskCount">0</b><span>未完成待辦</span></div><div class="stat"><b id="eventCount">0</b><span>今日行程</span></div><div class="stat"><b id="expenseTotal">$0</b><span>本月支出</span></div></div></div>
 <div class="section"><div class="section-head"><h2>今天的任務</h2><button class="secondary" onclick="openTask()">＋ 新增</button></div><div class="card" id="homeTasks"></div></div>
 <div class="section"><div class="section-head"><h2>專屬 AI 部門</h2><span class="sub">選擇部門快速進入</span></div><div class="grid"><div class="tile" onclick="showPage('marketing')"><div class="ico">📣</div><b>行銷部</b><small>工作與內容</small></div><div class="tile" onclick="showPage('lifestyle')"><div class="ico">🗓️</div><b>生活部</b><small>行程與規劃</small></div><div class="tile" onclick="showPage('finance')"><div class="ico">💰</div><b>財務部</b><small>記帳與預算</small></div><div class="tile" onclick="showPage('romance')"><div class="ico">💗</div><b>戀愛腦</b><small>感情與塔羅</small></div><div class="tile" onclick="showPage('fandom')"><div class="ico">🎫</div><b>追星達人</b><small>活動與售票</small></div><div class="tile" onclick="showPage('notes')"><div class="ico">📚</div><b>資料中心</b><small>筆記與知識</small></div><div class="tile" onclick="showPage('worklogs')"><div class="ico">📝</div><b>工作紀錄</b><small>每日工作日誌</small></div></div></div>
-<div class="section"><div class="section-head"><h2>跟生活管家說說話</h2><span class="sub">AI 對話測試</span></div><div class="card"><div class="muted" style="font-size:12px;line-height:1.6">可以試試：「明天整理競品分析，預計 1 小時，高優先」或「今天午餐 120 元」。</div><div class="chatbox"><input id="quickInput" placeholder="輸入今天想處理的事…" onkeydown="if(event.key==='Enter')quickSend()"><button onclick="quickSend()">送出</button></div><div class="notice">目前已連接 AI 對話。AI 回答不會自動新增待辦、記帳或修改資料。</div></div></div>
+<div class="section"><div class="section-head"><h2>跟生活管家說說話</h2><span class="sub">AI 生活管家</span></div><div class="card"><div class="muted" style="font-size:12px;line-height:1.6">可以試試：「明天整理競品分析，預計 1 小時，高優先」或「今天午餐 120 元」。</div><div class="chatbox"><input id="quickInput" placeholder="輸入今天想處理的事…" onkeydown="if(event.key==='Enter')quickSend()"><button onclick="quickSend()">送出</button></div><div class="notice">AI 可提出待辦、記帳、工作紀錄或筆記草稿；只有你按下確認後才會保存。</div></div></div>
 </section>
 <section id="tasks" class="page"><h1 class="page-title">任務管理</h1><p class="page-desc">把事情放進來，再一件一件完成。</p><div class="actions"><button class="primary" onclick="openTask()">＋ 新增待辦</button><button class="secondary" onclick="showToast('目前顯示全部任務')">全部任務</button></div><div class="section card" id="allTasks"></div></section>
 
@@ -56,7 +56,7 @@
   <p class="page-desc">KOL 行銷工作助理｜工作整理、內容企劃與競品研究</p>
   <div class="card">
     <div class="section-head"><h2>行銷部助理</h2><span class="sub">獨立工作空間</span></div>
-    <div class="notice">可以輸入今日工作、KOL 合作進度、競品觀察或內容企劃想法。目前可使用 AI 對話，但不會自動儲存工作紀錄或執行外部操作。</div>
+    <div class="notice">可以輸入今日工作、KOL 合作進度、競品觀察或內容企劃想法。可用自然語言提出資料新增需求；AI 會先提出草稿，經你確認才寫入雲端。</div>
     <div class="chat-history" id="marketingHistory"><div class="bubble ai">嗨！這裡是行銷部。可以先記錄今天完成的工作、花費時間與遇到的問題。</div></div>
     <div class="chatbox"><input id="marketingInput" placeholder="輸入行銷工作或內容需求…" onkeydown="if(event.key==='Enter')sendDepartment('marketing')"><button onclick="sendDepartment('marketing')">送出</button></div>
   </div>
@@ -71,7 +71,7 @@
   <p class="page-desc">生活規劃助理｜待辦事項、行程安排與日常管理</p>
   <div class="card">
     <div class="section-head"><h2>生活規劃助理</h2><span class="sub">獨立工作空間</span></div>
-    <div class="notice">可以輸入待辦事項、行程安排、生活提醒或時間規劃。目前可使用 AI 對話，但不會自動儲存工作紀錄或執行外部操作。</div>
+    <div class="notice">可以輸入待辦事項、行程安排、生活提醒或時間規劃。可用自然語言提出資料新增需求；AI 會先提出草稿，經你確認才寫入雲端。</div>
     <div class="chat-history" id="lifestyleHistory"><div class="bubble ai">嗨！這裡是生活部。告訴我今天要處理的事情，我可以先協助建立待辦事項。</div></div>
     <div class="chatbox"><input id="lifestyleInput" placeholder="輸入待辦或行程需求…" onkeydown="if(event.key==='Enter')sendDepartment('lifestyle')"><button onclick="sendDepartment('lifestyle')">送出</button></div>
   </div>
@@ -290,7 +290,6 @@ async function requestAI(message,department){
   if(!supabaseClient)throw new Error('尚未連線 Supabase');
   const {data:{session},error:sessionError}=await supabaseClient.auth.getSession();
   if(sessionError||!session?.access_token)throw new Error('登入已失效，請重新登入');
-  // 使用 fetch 明確送出使用者 JWT；不在前端存放 OpenAI 金鑰。
   const response=await fetch(SUPABASE_URL+'/functions/v1/ai-chat',{
     method:'POST',
     headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY,'Authorization':'Bearer '+session.access_token},
@@ -300,22 +299,56 @@ async function requestAI(message,department){
   try{payload=await response.json();}catch(e){throw new Error('伺服器沒有回傳有效資料');}
   if(!response.ok)throw new Error(payload.error||('AI 連線失敗（HTTP '+response.status+'）'));
   if(typeof payload.reply!=='string'||!payload.reply.trim())throw new Error('AI 沒有回傳文字');
-  return payload.reply;
+  return payload;
+}
+let pendingAction=null;
+function actionLabel(a){return ({create_task:'新增待辦',create_expense:'新增支出',create_worklog:'新增工作紀錄',create_note:'新增筆記'})[a.type]||'新增資料';}
+function showActionProposal(history,action){
+  if(!action||!['create_task','create_expense','create_worklog','create_note'].includes(action.type))return;
+  pendingAction=action;
+  const card=document.createElement('div');card.className='bubble ai';
+  const title=document.createElement('b');title.textContent='資料草稿｜'+actionLabel(action);card.appendChild(title);
+  const detail=document.createElement('div');detail.style.margin='8px 0';detail.style.whiteSpace='pre-wrap';
+  const lines=[];
+  if(action.type==='create_task'){lines.push('任務：'+(action.title||''),'類別：'+(action.category||'生活'),'截止日：'+(action.due_date||'未設定'),'預估時間：'+(action.estimated_minutes||30)+' 分鐘','優先級：'+(action.priority||'medium'));}
+  if(action.type==='create_expense'){lines.push('項目：'+(action.title||''),'金額：NT$ '+(action.amount||''),'分類：'+(action.category||'其他'),'日期：'+(action.date||today()));}
+  if(action.type==='create_worklog'){lines.push('工作內容：'+(action.content||''),'日期：'+(action.date||today()),'時間：'+(action.minutes||0)+' 分鐘');}
+  if(action.type==='create_note'){lines.push('標題：'+(action.title||''),'內容：'+(action.content||''));}
+  detail.textContent=lines.join('\n');card.appendChild(detail);
+  const hint=document.createElement('div');hint.className='notice';hint.textContent='確認後才會寫入你的雲端資料；取消則不會保存。';card.appendChild(hint);
+  const row=document.createElement('div');row.className='actions';row.style.marginTop='10px';
+  const yes=document.createElement('button');yes.className='primary';yes.textContent='確認新增';yes.onclick=()=>commitPendingAction(card);
+  const no=document.createElement('button');no.className='secondary';no.textContent='取消';no.onclick=()=>{pendingAction=null;card.remove();showToast('已取消，沒有新增資料');};
+  row.append(yes,no);card.appendChild(row);history.appendChild(card);history.scrollTop=history.scrollHeight;
+}
+async function commitPendingAction(card){
+  const a=pendingAction;if(!a)return;
+  if(!currentUser||!cloudReady){showToast('雲端尚未就緒，請重新登入後再試');return;}
+  try{
+    if(a.type==='create_task'){
+      if(!a.title)return showToast('任務名稱不完整，請重新描述');
+      db.tasks.unshift({id:id(),title:String(a.title).slice(0,180),category:['生活','工作','行銷','個人'].includes(a.category)?a.category:'生活',due:/^\d{4}-\d{2}-\d{2}$/.test(a.due_date||'')?a.due_date:'',mins:Math.max(5,Math.min(1440,Number(a.estimated_minutes)||30)),priority:['high','medium','low'].includes(a.priority)?a.priority:'medium',done:false,created:Date.now()});
+    }else if(a.type==='create_expense'){
+      const amount=Number(a.amount);if(!a.title||!Number.isFinite(amount)||amount<=0)return showToast('支出項目或金額不正確');
+      db.expenses.unshift({id:id(),title:String(a.title).slice(0,100),amount,category:['餐飲','交通','購物','娛樂','生活','其他'].includes(a.category)?a.category:'其他',date:/^\d{4}-\d{2}-\d{2}$/.test(a.date||'')?a.date:today()});
+    }else if(a.type==='create_worklog'){
+      if(!a.content)return showToast('工作內容不能空白');
+      db.worklogs.unshift({id:id(),text:String(a.content).slice(0,3000),date:/^\d{4}-\d{2}-\d{2}$/.test(a.date||'')?a.date:today(),minutes:Math.max(0,Math.min(1440,Number(a.minutes)||0))});
+    }else if(a.type==='create_note'){
+      if(!a.content&&!a.title)return showToast('筆記內容不能空白');
+      db.notes.unshift({id:id(),title:String(a.title||'未命名筆記').slice(0,150),body:String(a.content||'').slice(0,5000),date:today()});
+    }
+    pendingAction=null;card.remove();localStorage.setItem(KEY,JSON.stringify(db));renderAll();await pushCloudData();showToast('已新增並同步雲端');
+  }catch(e){console.error(e);showToast('新增失敗：'+(e.message||'請稍後再試'));}
 }
 async function sendAIFrom(inputId,historyId,department,goToChat=false){
   if(aiPending){showToast('請等待上一則 AI 回覆');return;}
-  const input=document.getElementById(inputId);
-  const message=input.value.trim();
-  if(!message)return;
+  const input=document.getElementById(inputId);const message=input.value.trim();if(!message)return;
   if(message.length>4000){showToast('單次訊息不可超過 4000 字');return;}
-  const history=document.getElementById(historyId);
-  input.value='';
-  if(goToChat)showPage('chat');
-  appendChatBubble(history,'user',message);
-  const waiting=appendChatBubble(history,'ai','AI 正在思考…');
-  aiPending=true;
-  try{waiting.textContent=await requestAI(message,department);}
-  catch(e){waiting.textContent='連線失敗：'+(e.message||'請稍後再試')+'\n（這則訊息沒有自動建立任務或紀錄。）';}
+  const history=document.getElementById(historyId);input.value='';if(goToChat)showPage('chat');
+  appendChatBubble(history,'user',message);const waiting=appendChatBubble(history,'ai','AI 正在思考…');aiPending=true;
+  try{const result=await requestAI(message,department);waiting.textContent=result.reply;if(result.action)showActionProposal(history,result.action);}
+  catch(e){waiting.textContent='連線失敗：'+(e.message||'請稍後再試')+'\n（沒有新增任何資料。）';}
   finally{aiPending=false;history.scrollTop=history.scrollHeight;}
 }
 function sendDepartment(page){return sendAIFrom(page+'Input',page+'History',AI_DEPARTMENTS[page]||'生活總管');}
