@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#24364b">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="My Life OS">
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>My Life OS v12｜Google 日曆選配版</title>
+<title>My Life OS v16｜追星與感情紀錄雲端版</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--navy:#24364b;--navy2:#314962;--bg:#f4f6f8;--card:#fff;--ink:#202b38;--muted:#778391;--line:#e7ebef;--blue:#52749a;--green:#4e8068;--gold:#a77c3d;--rose:#a35f7c;--shadow:0 8px 28px rgba(32,48,65,.07)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(84px + env(safe-area-inset-bottom))}.app{max-width:760px;margin:auto;padding:18px 16px 24px}.top{display:flex;align-items:center;justify-content:space-between;margin:6px 2px 18px}.brand{font-weight:800;letter-spacing:.3px;font-size:20px}.brand small{display:block;font-size:10px;letter-spacing:1.7px;color:var(--muted);font-weight:600;margin-top:3px}.avatar{width:38px;height:38px;border-radius:50%;background:#e5ebf1;color:var(--navy);display:grid;place-items:center;font-weight:700}.hero{background:linear-gradient(135deg,#24364b,#3b5873);color:white;padding:22px;border-radius:22px;box-shadow:var(--shadow)}.eyebrow{font-size:10px;letter-spacing:1.5px;color:#c5d2df}.hero h1{font-size:24px;margin:9px 0 6px}.hero p{margin:0;color:#d6e0e9;font-size:13px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:20px}.stat{background:#ffffff18;border:1px solid #ffffff20;border-radius:13px;padding:11px}.stat b{display:block;font-size:23px}.stat span{font-size:11px;color:#d6e0e9}.section{margin-top:23px}.section-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 11px}.section-head h2{font-size:16px;margin:0}.sub{font-size:11px;color:var(--muted)}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:14px;box-shadow:0 3px 14px rgba(32,48,65,.025)}.task{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}.task:last-child{border:0;padding-bottom:0}.check{width:21px;height:21px;border:1.5px solid #c7d0d9;border-radius:7px;flex:none;display:grid;place-items:center;background:white;color:white}.check.done{background:var(--green);border-color:var(--green)}.task-main{min-width:0;flex:1}.task-title{font-size:13px;font-weight:650;overflow-wrap:anywhere}.task-meta{font-size:10px;color:var(--muted);margin-top:4px}.pill{font-size:10px;padding:4px 8px;border-radius:20px;background:#f1f3f5;color:#697684;white-space:nowrap}.high{background:#f9e9e8;color:#a34f4a}.medium{background:#fbf2e4;color:#956c2f}.low{background:#eaf1eb;color:#4e8068}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.tile{background:white;border:1px solid var(--line);border-radius:16px;padding:15px 8px;text-align:center;cursor:pointer;box-shadow:0 3px 14px rgba(32,48,65,.025)}.tile .ico{width:38px;height:38px;border-radius:13px;background:#edf1f5;margin:0 auto 8px;display:grid;place-items:center;font-size:19px}.tile b{font-size:12px}.tile small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.chatbox{display:flex;gap:8px;margin-top:10px}.chatbox input,.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fbfcfd;border-radius:12px;padding:12px;font:inherit;font-size:13px;outline:none}.chatbox button,.primary{border:0;border-radius:12px;background:var(--navy);color:white;padding:0 17px;font-weight:650}.notice{font-size:11px;color:var(--muted);line-height:1.6;margin-top:9px}.bottom{position:fixed;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(15px);border-top:1px solid var(--line);padding:9px 10px calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:10}.nav{width:min(760px,100%);display:grid;grid-template-columns:repeat(6,1fr)}.nav button{border:0;background:none;color:#8a95a0;font-size:10px;padding:5px 0;display:grid;gap:4px;justify-items:center}.nav button span{font-size:19px}.nav button.active{color:var(--navy);font-weight:750}.page{display:none}.page.active{display:block}.page-title{font-size:23px;margin:9px 0 5px}.page-desc{color:var(--muted);font-size:12px;margin:0 0 18px}.actions{display:flex;gap:8px;flex-wrap:wrap}.primary{padding:11px 15px;font-size:12px;cursor:pointer}.secondary{padding:10px 14px;border:1px solid var(--line);background:white;border-radius:12px;font-size:12px;color:var(--ink)}.field{margin:12px 0}.field label{display:block;font-size:11px;color:var(--muted);margin:0 0 6px}.field textarea{min-height:75px;resize:vertical}.list-row{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:13px}.list-row:last-child{border:0}.empty{padding:25px 10px;text-align:center;color:var(--muted);font-size:12px}.bubble{padding:12px 13px;border-radius:14px;background:#eef2f6;font-size:13px;line-height:1.6;margin:9px 0;white-space:pre-wrap}.bubble.user{background:#e5edf5;margin-left:35px}.bubble.ai{margin-right:20px}.tag{font-size:10px;color:var(--blue);font-weight:700}.modal{position:fixed;inset:0;background:#17243277;display:none;align-items:flex-end;justify-content:center;z-index:20}.modal.show{display:flex}.sheet{background:white;width:min(760px,100%);border-radius:22px 22px 0 0;padding:22px 18px calc(24px + env(safe-area-inset-bottom));max-height:90vh;overflow:auto}.sheet h3{margin:0 0 15px}.sheet .primary{width:100%;margin-top:9px}.toast{position:fixed;bottom:95px;left:50%;transform:translateX(-50%);background:#24364b;color:white;padding:10px 15px;border-radius:20px;font-size:12px;display:none;z-index:30}.muted{color:var(--muted)}.money{font-size:25px;font-weight:800}.report-block{margin:12px 0}.report-block b{font-size:12px}.report-block p{font-size:12px;color:#647180;line-height:1.7;margin:5px 0}.divider{height:1px;background:var(--line);margin:12px 0}
@@ -85,27 +85,44 @@
   <p class="page-desc">追星情報助理｜藝人活動、演唱會、售票與追星行程</p>
   <div class="card">
     <div class="section-head"><h2>追星規劃與情報</h2><span class="sub">獨立工作空間</span></div>
-    <div class="notice">可以記錄想追蹤的藝人、活動日期、售票提醒與追星行程。目前可使用 AI 對話，但尚未連接即時網路搜尋、官方公告監測或自動通知。</div>
+    <div class="notice">AI 對話與追星紀錄分開保存。下方紀錄會同步到你的 Supabase 帳號，只有本人能讀取。</div>
     <div class="chat-history" id="fandomHistory"><div class="bubble ai">嗨！這裡是追星。可以先告訴我想追蹤的藝人、活動或演唱會資訊。</div></div>
     <div class="chatbox"><input id="fandomInput" placeholder="輸入藝人或活動需求…" onkeydown="if(event.key==='Enter')sendDepartment('fandom')"><button onclick="sendDepartment('fandom')">送出</button></div>
   </div>
-  <div class="section"><div class="section-head"><h2>常用功能</h2></div><div class="grid">
-    <div class="tile" onclick="showPage('tasks')"><div class="ico">⏰</div><b>活動待辦</b><small>整理追星行程</small></div>
-    <div class="tile" onclick="showPage('notes')"><div class="ico">📚</div><b>追星資料</b><small>保存活動資訊</small></div>
-  </div></div>
+  <div class="section">
+    <div class="section-head"><h2>我的追星紀錄</h2><span class="sub" id="fandomRecordCount">0 筆</span></div>
+    <div class="card">
+      <div class="field"><label>紀錄類型</label><select id="fandomType"><option value="藝人／團體">藝人／團體</option><option value="活動／演唱會">活動／演唱會</option><option value="追星日記">追星日記</option><option value="收藏／周邊">收藏／周邊</option><option value="花費紀錄">花費紀錄</option><option value="追星計畫">追星計畫</option></select></div>
+      <div class="field"><label>標題</label><input id="fandomTitle" placeholder="例如：FreenBecky 台北見面會"></div>
+      <div class="field"><label>藝人／團體（選填）</label><input id="fandomPerson" placeholder="例如：Freen、Becky"></div>
+      <div class="field"><label>日期（選填）</label><input id="fandomDate" type="date"></div>
+      <div class="field"><label>內容</label><textarea id="fandomContent" placeholder="活動資訊、心得、購票細節、收藏內容……"></textarea></div>
+      <button class="primary" onclick="savePersonalRecord('fandom')">儲存追星紀錄</button>
+    </div>
+    <div id="fandomRecordList" class="card" style="margin-top:10px"><div class="empty">載入追星紀錄中…</div></div>
+  </div>
 </section>
 <section id="romance" class="page">
   <h1 class="page-title">感情</h1>
   <p class="page-desc">互動分析、訊息回覆與自我覺察</p>
   <div class="card">
     <div class="section-head"><h2>感情</h2><span class="sub">獨立工作空間</span></div>
-    <div class="notice">可以整理感情困擾、互動情境、訊息草稿或塔羅牌面。目前可使用 AI 對話；占卜內容不作為確定預言，對話不會自動儲存。</div>
+    <div class="notice">AI 對話與感情紀錄分開保存。下方紀錄會同步到你的 Supabase 帳號，只有本人能讀取；占卜內容僅作自我整理參考。</div>
     <div class="chat-history" id="romanceHistory"><div class="bubble ai">嗨！這裡是感情。可以把發生的事情、對方說的話或你想回覆的訊息放在這裡。</div></div>
     <div class="chatbox"><input id="romanceInput" placeholder="輸入感情問題或訊息草稿…" onkeydown="if(event.key==='Enter')sendDepartment('romance')"><button onclick="sendDepartment('romance')">送出</button></div>
   </div>
-  <div class="section"><div class="section-head"><h2>常用功能</h2></div><div class="grid">
-    <div class="tile" onclick="showPage('notes')"><div class="ico">📚</div><b>關係筆記</b><small>整理重要互動</small></div>
-  </div></div>
+  <div class="section">
+    <div class="section-head"><h2>我的感情紀錄</h2><span class="sub" id="romanceRecordCount">0 筆</span></div>
+    <div class="card">
+      <div class="field"><label>紀錄類型</label><select id="romanceType"><option value="互動紀錄">互動紀錄</option><option value="情緒日記">情緒日記</option><option value="關係觀察">關係觀察</option><option value="訊息草稿">訊息草稿</option><option value="占卜紀錄">占卜紀錄</option><option value="感情計畫">感情計畫</option></select></div>
+      <div class="field"><label>標題</label><input id="romanceTitle" placeholder="例如：今天一起吃飯"></div>
+      <div class="field"><label>對象稱呼（選填）</label><input id="romancePerson" placeholder="例如：她"></div>
+      <div class="field"><label>日期（選填）</label><input id="romanceDate" type="date"></div>
+      <div class="field"><label>內容</label><textarea id="romanceContent" placeholder="互動經過、對話、自己的感受或牌面……"></textarea></div>
+      <button class="primary" onclick="savePersonalRecord('romance')">儲存感情紀錄</button>
+    </div>
+    <div id="romanceRecordList" class="card" style="margin-top:10px"><div class="empty">載入感情紀錄中…</div></div>
+  </div>
 </section>
 <section id="chat" class="page"><h1 class="page-title" id="chatPageTitle">AI 生活管家</h1><p class="page-desc" id="chatPageDesc">統一 AI 對話入口｜已連接後端</p><div class="card"><div id="chatHistory"><div class="bubble ai">嗨！我是妳的 AI 生活管家。可以問我工作、生活或日常問題；目前不會自動寫入資料庫。</div></div><div class="chatbox"><input id="chatInput" placeholder="輸入訊息…" onkeydown="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">送出</button></div></div><div class="notice">輸入的對話文字會送至 OpenAI 處理；請勿貼上密碼或公司機密。尚未支援即時搜尋、自動排程與對話雲端保存。</div></section>
 <section id="finance" class="page"><h1 class="page-title">記帳</h1><p class="page-desc">快速記帳，掌握每月支出。</p><div class="card"><div class="sub">本月累計支出</div><div class="money" id="monthSpend">NT$ 0</div><div class="divider"></div><button class="primary" onclick="openExpense()">＋ 新增支出</button></div><div class="section"><div class="section-head"><h2>最近紀錄</h2><span class="sub">依新增時間排序</span></div><div class="card" id="expenseList"></div></div></section>
@@ -190,6 +207,7 @@ async function showSignedIn(user){
   showToast('正在載入雲端資料…');
   try{
     await loadCloudData();
+    await loadPersonalRecords();
     cloudReady=true;
     renderAll();
     showToast('雲端資料載入完成');
@@ -252,6 +270,61 @@ async function pushCloudData(){
 function taipeiDateParts(date=new Date()){const p=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);const o={};p.forEach(x=>{if(x.type!=='literal')o[x.type]=x.value});return o}
 function today(){const p=taipeiDateParts();return `${p.year}-${p.month}-${p.day}`}
 function taipeiDateTime(){return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(new Date()).replace(' ','T')}function showToast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}let activeDepartment = '';
+// v16：追星／感情專屬雲端紀錄（RLS 依登入使用者隔離）
+let personalRecords = { fandom: [], romance: [] };
+async function loadPersonalRecords(){
+  if(!supabaseClient || !currentUser) return;
+  const {data,error}=await supabaseClient.from('personal_records').select('*')
+    .in('department',['fandom','romance']).order('event_date',{ascending:false,nullsFirst:false}).order('created_at',{ascending:false});
+  if(error) throw error;
+  personalRecords={fandom:[],romance:[]};
+  (data||[]).forEach(r=>{if(personalRecords[r.department])personalRecords[r.department].push(r);});
+  renderPersonalRecords('fandom'); renderPersonalRecords('romance');
+}
+function renderPersonalRecords(dept){
+  const list=document.getElementById(dept+'RecordList'), count=document.getElementById(dept+'RecordCount');
+  if(!list||!count)return;
+  const rows=personalRecords[dept]||[]; count.textContent=rows.length+' 筆';
+  list.innerHTML=rows.length?rows.map(r=>`<div class="list-row"><div style="min-width:0;flex:1">
+    <span class="tag">${esc(r.record_type||'一般紀錄')}</span><b style="display:block;margin-top:4px">${esc(r.title)}</b>
+    <div class="sub">${esc(r.related_person||'未填對象')}${r.event_date?'・'+esc(r.event_date):''}</div>
+    <div style="font-size:12px;line-height:1.7;margin-top:6px;white-space:pre-wrap;overflow-wrap:anywhere">${esc(r.content||'')}</div>
+    <div class="record-actions"><button class="mini-btn" onclick="editPersonalRecord('${r.id}')">編輯</button><button class="mini-btn danger" onclick="deletePersonalRecord('${r.id}')">刪除</button></div>
+  </div></div>`).join(''):'<div class="empty">目前沒有紀錄，填寫上方表單即可保存。</div>';
+}
+async function savePersonalRecord(dept, recordId=null){
+  if(!supabaseClient||!currentUser||!cloudReady)return showToast('請先登入並等待雲端同步完成');
+  const title=document.getElementById(dept+'Title').value.trim();
+  const content=document.getElementById(dept+'Content').value.trim();
+  if(!title||!content)return showToast('標題和內容都要填寫');
+  const payload={user_id:currentUser.id,department:dept,record_type:document.getElementById(dept+'Type').value,
+    title:title.slice(0,150),related_person:document.getElementById(dept+'Person').value.trim().slice(0,100)||null,
+    event_date:document.getElementById(dept+'Date').value||null,content:content.slice(0,10000),updated_at:new Date().toISOString()};
+  try{
+    let q=recordId?supabaseClient.from('personal_records').update(payload).eq('id',recordId).eq('user_id',currentUser.id)
+      :supabaseClient.from('personal_records').insert(payload);
+    const {error}=await q;if(error)throw error;
+    ['Type','Title','Person','Date','Content'].forEach(k=>{const el=document.getElementById(dept+k);if(el)el.value='';});
+    await loadPersonalRecords();showToast(recordId?'紀錄已更新並同步雲端':'紀錄已保存並同步雲端');
+  }catch(e){console.error(e);showToast('保存失敗：'+(e.message||'請稍後重試'));}
+}
+function editPersonalRecord(recordId){
+  const r=[...personalRecords.fandom,...personalRecords.romance].find(x=>x.id===recordId);if(!r)return;
+  const d=r.department;
+  document.getElementById(d+'Type').value=r.record_type||'';
+  document.getElementById(d+'Title').value=r.title||'';
+  document.getElementById(d+'Person').value=r.related_person||'';
+  document.getElementById(d+'Date').value=r.event_date||'';
+  document.getElementById(d+'Content').value=r.content||'';
+  showPage(d);const btn=document.querySelector('#'+d+' .primary[onclick^="savePersonalRecord"]');
+  if(btn){btn.textContent='更新紀錄';btn.onclick=()=>savePersonalRecord(d,r.id);}
+  showToast('已載入紀錄，修改後按「更新紀錄」');
+}
+async function deletePersonalRecord(recordId){
+  if(!confirm('確定永久刪除這筆紀錄？'))return;
+  try{const {error}=await supabaseClient.from('personal_records').delete().eq('id',recordId).eq('user_id',currentUser.id);if(error)throw error;
+    await loadPersonalRecords();showToast('紀錄已刪除');}catch(e){showToast('刪除失敗：'+e.message);}
+}
 function openChat(department){
   activeDepartment = department || '';
   showPage('chat');
