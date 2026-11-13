@@ -15,7 +15,7 @@
 .bottom{overflow-x:auto;scrollbar-width:none}
 .bottom::-webkit-scrollbar{display:none}
 .bottom .nav{min-width:max-content;display:flex;gap:4px}
-.bottom .nav button{min-width:68px;flex:0 0 auto}
+.bottom .nav button{min-width:68px;flex:0 0 auto}.bottom .nav button[data-page="tasks"]{min-width:108px}
 
 .record-actions{display:flex;gap:6px;justify-content:flex-end;margin-top:7px;flex-wrap:wrap}.mini-btn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;padding:5px 9px;font-size:11px;cursor:pointer}.mini-btn.danger{color:#a34f4a;border-color:#f0d9d7}.record-actions .mini-btn{white-space:nowrap}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:10px}.calendar-day{border:1px solid var(--line);border-radius:9px;min-height:58px;padding:5px 3px;background:#fff;font-size:10px;overflow:hidden}.calendar-day.head{min-height:auto;border:0;background:transparent;color:var(--muted);text-align:center;font-weight:700}.calendar-day.today{border-color:var(--blue);background:#edf3f8}.calendar-day .daynum{font-weight:700}.calendar-day .event-dot{display:block;margin-top:3px;padding:2px 3px;border-radius:4px;background:#e9eff5;color:#314962;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:9px}.calendar-event{padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.calendar-event:last-child{border:0}.calendar-event b{display:block}.calendar-event small{color:var(--muted)}</style></head>
@@ -47,38 +47,12 @@
 <header class="top"><div class="brand">My Life OS<small>PERSONAL LIFE MANAGEMENT</small></div><button class="secondary" id="accountButton" onclick="signOut()" style="font-size:11px">登出</button></header>
 <section id="home" class="page active">
 <div class="hero"><div class="eyebrow" id="todayDate">PERSONAL DASHBOARD</div><h1>今天，想先處理什麼？</h1><p>工作、生活與重要事項，都從這裡開始。</p><div class="stats"><div class="stat"><b id="taskCount">0</b><span>未完成待辦</span></div><div class="stat"><b id="eventCount">0</b><span>今日行程</span></div><div class="stat"><b id="expenseTotal">$0</b><span>本月支出</span></div></div></div>
-<div class="section"><div class="section-head"><h2>近期行程</h2><button class="mini-btn" onclick="showPage('lifestyle')">開啟行事曆</button></div><div class="card" id="homeCalendarPreview"><div class="empty">新增行程後，這裡會顯示近期安排。</div></div></div>
+<div class="section"><div class="section-head"><h2>近期行程</h2><button class="mini-btn" onclick="showPage('tasks')">開啟行事曆</button></div><div class="card" id="homeCalendarPreview"><div class="empty">新增行程後，這裡會顯示近期安排。</div></div></div>
 <div class="section"><div class="section-head"><h2>今天的任務</h2><button class="secondary" onclick="openTask()">＋ 新增</button></div><div class="card" id="homeTasks"></div></div>
-<div class="section"><div class="section-head"><h2>專屬 AI 部門</h2><span class="sub">選擇部門快速進入</span></div><div class="grid"><div class="tile" onclick="showPage('marketing')"><div class="ico">📣</div><b>行銷部</b><small>工作與內容</small></div><div class="tile" onclick="showPage('lifestyle')"><div class="ico">🗓️</div><b>生活部</b><small>行程與規劃</small></div><div class="tile" onclick="showPage('finance')"><div class="ico">💰</div><b>財務部</b><small>記帳與預算</small></div><div class="tile" onclick="showPage('romance')"><div class="ico">💗</div><b>戀愛腦</b><small>感情與塔羅</small></div><div class="tile" onclick="showPage('fandom')"><div class="ico">🎫</div><b>追星達人</b><small>活動與售票</small></div><div class="tile" onclick="showPage('notes')"><div class="ico">📚</div><b>資料中心</b><small>筆記與知識</small></div><div class="tile" onclick="showPage('worklogs')"><div class="ico">📝</div><b>工作紀錄</b><small>每日工作日誌</small></div></div></div>
+<div class="section"><div class="section-head"><h2>專屬 AI 部門</h2><span class="sub">選擇部門快速進入</span></div><div class="grid"><div class="tile" onclick="showPage('marketing')"><div class="ico">📣</div><b>行銷部</b><small>KOL、內容與研究</small></div><div class="tile" onclick="showPage('finance')"><div class="ico">💰</div><b>記帳</b><small>記帳與預算</small></div><div class="tile" onclick="showPage('romance')"><div class="ico">💗</div><b>感情</b><small>感情與塔羅</small></div><div class="tile" onclick="showPage('fandom')"><div class="ico">🎫</div><b>追星</b><small>活動與售票資訊</small></div><div class="tile" onclick="showPage('notes')"><div class="ico">📚</div><b>筆記</b><small>想法與知識整理</small></div><div class="tile" onclick="showPage('worklogs')"><div class="ico">📝</div><b>工作紀錄</b><small>每日工作日誌</small></div></div></div>
 <div class="section"><div class="section-head"><h2>跟生活管家說說話</h2><span class="sub">AI 生活管家</span></div><div class="card"><div class="muted" style="font-size:12px;line-height:1.6">可以試試：「明天整理競品分析，預計 1 小時，高優先」或「今天午餐 120 元」。</div><div class="chatbox"><input id="quickInput" placeholder="輸入今天想處理的事…" onkeydown="if(event.key==='Enter')quickSend()"><button onclick="quickSend()">送出</button></div><div class="notice">AI 可提出待辦、記帳、工作紀錄或筆記草稿；只有你按下確認後才會保存。</div></div></div>
 </section>
-<section id="tasks" class="page"><h1 class="page-title">任務管理</h1><p class="page-desc">把事情放進來，再一件一件完成。</p><div class="actions"><button class="primary" onclick="openTask()">＋ 新增待辦</button><button class="secondary" onclick="showToast('目前顯示全部任務')">全部任務</button></div><div class="section card" id="allTasks"></div></section>
-
-<section id="marketing" class="page">
-  <h1 class="page-title">行銷部</h1>
-  <p class="page-desc">KOL 行銷工作助理｜工作整理、內容企劃與競品研究</p>
-  <div class="card">
-    <div class="section-head"><h2>行銷部助理</h2><span class="sub">獨立工作空間</span></div>
-    <div class="notice">可以輸入今日工作、KOL 合作進度、競品觀察或內容企劃想法。可用自然語言提出資料新增需求；AI 會先提出草稿，經你確認才寫入雲端。</div>
-    <div class="chat-history" id="marketingHistory"><div class="bubble ai">嗨！這裡是行銷部。可以先記錄今天完成的工作、花費時間與遇到的問題。</div></div>
-    <div class="chatbox"><input id="marketingInput" placeholder="輸入行銷工作或內容需求…" onkeydown="if(event.key==='Enter')sendDepartment('marketing')"><button onclick="sendDepartment('marketing')">送出</button></div>
-  </div>
-  <div class="section"><div class="section-head"><h2>常用功能</h2></div><div class="grid">
-    <div class="tile" onclick="showPage('worklogs')"><div class="ico">📝</div><b>工作紀錄</b><small>每日工作日誌</small></div>
-    <div class="tile" onclick="showPage('reports')"><div class="ico">📊</div><b>工作回顧</b><small>查看每週摘要</small></div>
-    <div class="tile" onclick="showPage('notes')"><div class="ico">📚</div><b>行銷資料</b><small>整理研究與筆記</small></div>
-  </div></div>
-</section>
-<section id="lifestyle" class="page">
-  <h1 class="page-title">生活部</h1>
-  <p class="page-desc">生活規劃助理｜待辦事項、行程安排與日常管理</p>
-  <div class="card">
-    <div class="section-head"><h2>生活規劃助理</h2><span class="sub">獨立工作空間</span></div>
-    <div class="notice">可以輸入待辦事項、行程安排、生活提醒或時間規劃。可用自然語言提出資料新增需求；AI 會先提出草稿，經你確認才寫入雲端。</div>
-    <div class="chat-history" id="lifestyleHistory"><div class="bubble ai">嗨！這裡是生活部。告訴我今天要處理的事情，我可以先協助建立待辦事項。</div></div>
-    <div class="chatbox"><input id="lifestyleInput" placeholder="輸入待辦或行程需求…" onkeydown="if(event.key==='Enter')sendDepartment('lifestyle')"><button onclick="sendDepartment('lifestyle')">送出</button></div>
-  </div>
-  <div class="section" id="calendarSection">
+<section id="tasks" class="page"><h1 class="page-title">代辦與行事曆</h1><p class="page-desc">工作、生活與個人事項統一管理；代辦和行程都在這裡。</p><div class="actions"><button class="primary" onclick="openTask()">＋ 新增代辦</button></div><div class="section"><div class="section-head"><h2>所有待辦</h2><span class="sub">依完成狀態管理</span></div><div class="card" id="allTasks"></div></div>  <div class="section" id="calendarSection">
     <div class="section-head"><h2>行事曆</h2><span class="sub" id="calendarStatus">尚未連結</span></div>
     <div class="card">
       <div class="notice" style="margin:0 0 10px">不連結 Google 也能獨立使用，行程會保存在 My Life OS。連結 Google 後可另外同步到 Google 日曆。</div><div class="actions" style="align-items:center;margin-bottom:10px"><button class="primary" id="calendarConnectBtn" onclick="calendarConnect()">連結 Google 日曆（選用）</button><button class="secondary" id="calendarDisconnectBtn" onclick="calendarDisconnect()" style="display:none">解除連結</button><button class="secondary" onclick="loadCalendar()">重新整理</button></div>
@@ -89,19 +63,30 @@
       <button class="secondary" onclick="draftCalendarFromText()">解析成行程草稿</button>
       <div class="notice">網站行程可獨立新增、查看、修改及刪除。若已連結 Google，可在新增時選擇同步；解除連結不會刪除網站行程。</div>
     </div>
+  </div></section>
+
+<section id="marketing" class="page">
+  <h1 class="page-title">行銷部</h1>
+  <p class="page-desc">KOL 行銷工作助理｜工作整理、內容企劃與競品研究</p>
+  <div class="card">
+    <div class="section-head"><h2>行銷工作助理</h2><span class="sub">獨立工作空間</span></div>
+    <div class="notice">可以輸入今日工作、KOL 合作進度、競品觀察或內容企劃想法。可用自然語言提出資料新增需求；AI 會先提出草稿，經你確認才寫入雲端。</div>
+    <div class="chat-history" id="marketingHistory"><div class="bubble ai">嗨！這裡是行銷部。可以先記錄今天完成的工作、花費時間與遇到的問題。</div></div>
+    <div class="chatbox"><input id="marketingInput" placeholder="輸入行銷工作或內容需求…" onkeydown="if(event.key==='Enter')sendDepartment('marketing')"><button onclick="sendDepartment('marketing')">送出</button></div>
   </div>
   <div class="section"><div class="section-head"><h2>常用功能</h2></div><div class="grid">
-    <div class="tile" onclick="showPage('tasks')"><div class="ico">☷</div><b>任務管理</b><small>查看待辦事項</small></div>
-    <div class="tile" onclick="showPage('reports')"><div class="ico">📅</div><b>每週回顧</b><small>整理近期進度</small></div>
+    <div class="tile" onclick="showPage('worklogs')"><div class="ico">📝</div><b>工作紀錄</b><small>每日工作日誌</small></div>
+    <div class="tile" onclick="showPage('reports')"><div class="ico">📊</div><b>工作回顧</b><small>查看每週摘要</small></div>
+    <div class="tile" onclick="showPage('notes')"><div class="ico">📚</div><b>行銷資料</b><small>整理研究與筆記</small></div>
   </div></div>
 </section>
 <section id="fandom" class="page">
-  <h1 class="page-title">追星達人</h1>
+  <h1 class="page-title">追星</h1>
   <p class="page-desc">追星情報助理｜藝人活動、演唱會、售票與追星行程</p>
   <div class="card">
-    <div class="section-head"><h2>追星達人</h2><span class="sub">獨立工作空間</span></div>
+    <div class="section-head"><h2>追星規劃與情報</h2><span class="sub">獨立工作空間</span></div>
     <div class="notice">可以記錄想追蹤的藝人、活動日期、售票提醒與追星行程。目前可使用 AI 對話，但尚未連接即時網路搜尋、官方公告監測或自動通知。</div>
-    <div class="chat-history" id="fandomHistory"><div class="bubble ai">嗨！這裡是追星達人。可以先告訴我想追蹤的藝人、活動或演唱會資訊。</div></div>
+    <div class="chat-history" id="fandomHistory"><div class="bubble ai">嗨！這裡是追星。可以先告訴我想追蹤的藝人、活動或演唱會資訊。</div></div>
     <div class="chatbox"><input id="fandomInput" placeholder="輸入藝人或活動需求…" onkeydown="if(event.key==='Enter')sendDepartment('fandom')"><button onclick="sendDepartment('fandom')">送出</button></div>
   </div>
   <div class="section"><div class="section-head"><h2>常用功能</h2></div><div class="grid">
@@ -110,12 +95,12 @@
   </div></div>
 </section>
 <section id="romance" class="page">
-  <h1 class="page-title">戀愛腦</h1>
-  <p class="page-desc">感情整理助理｜互動分析、訊息回覆與自我覺察</p>
+  <h1 class="page-title">感情</h1>
+  <p class="page-desc">互動分析、訊息回覆與自我覺察</p>
   <div class="card">
-    <div class="section-head"><h2>戀愛腦專區</h2><span class="sub">獨立工作空間</span></div>
+    <div class="section-head"><h2>感情</h2><span class="sub">獨立工作空間</span></div>
     <div class="notice">可以整理感情困擾、互動情境、訊息草稿或塔羅牌面。目前可使用 AI 對話；占卜內容不作為確定預言，對話不會自動儲存。</div>
-    <div class="chat-history" id="romanceHistory"><div class="bubble ai">嗨！這裡是戀愛腦。可以把發生的事情、對方說的話或你想回覆的訊息放在這裡。</div></div>
+    <div class="chat-history" id="romanceHistory"><div class="bubble ai">嗨！這裡是感情。可以把發生的事情、對方說的話或你想回覆的訊息放在這裡。</div></div>
     <div class="chatbox"><input id="romanceInput" placeholder="輸入感情問題或訊息草稿…" onkeydown="if(event.key==='Enter')sendDepartment('romance')"><button onclick="sendDepartment('romance')">送出</button></div>
   </div>
   <div class="section"><div class="section-head"><h2>常用功能</h2></div><div class="grid">
@@ -123,12 +108,12 @@
   </div></div>
 </section>
 <section id="chat" class="page"><h1 class="page-title" id="chatPageTitle">AI 生活管家</h1><p class="page-desc" id="chatPageDesc">統一 AI 對話入口｜已連接後端</p><div class="card"><div id="chatHistory"><div class="bubble ai">嗨！我是妳的 AI 生活管家。可以問我工作、生活或日常問題；目前不會自動寫入資料庫。</div></div><div class="chatbox"><input id="chatInput" placeholder="輸入訊息…" onkeydown="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">送出</button></div></div><div class="notice">輸入的對話文字會送至 OpenAI 處理；請勿貼上密碼或公司機密。尚未支援即時搜尋、自動排程與對話雲端保存。</div></section>
-<section id="finance" class="page"><h1 class="page-title">財務管理</h1><p class="page-desc">快速記帳，掌握每月支出。</p><div class="card"><div class="sub">本月累計支出</div><div class="money" id="monthSpend">NT$ 0</div><div class="divider"></div><button class="primary" onclick="openExpense()">＋ 新增支出</button></div><div class="section"><div class="section-head"><h2>最近紀錄</h2><span class="sub">依新增時間排序</span></div><div class="card" id="expenseList"></div></div></section>
-<section id="notes" class="page"><h1 class="page-title">資料中心</h1><p class="page-desc">收納想法、工作知識與重要筆記。</p><button class="primary" onclick="openNote()">＋ 新增筆記</button><div class="section card" id="noteList"></div></section>
+<section id="finance" class="page"><h1 class="page-title">記帳</h1><p class="page-desc">快速記帳，掌握每月支出。</p><div class="card"><div class="sub">本月累計支出</div><div class="money" id="monthSpend">NT$ 0</div><div class="divider"></div><button class="primary" onclick="openExpense()">＋ 新增支出</button></div><div class="section"><div class="section-head"><h2>最近紀錄</h2><span class="sub">依新增時間排序</span></div><div class="card" id="expenseList"></div></div></section>
+<section id="notes" class="page"><h1 class="page-title">筆記</h1><p class="page-desc">收納想法、工作知識與重要內容。</p><button class="primary" onclick="openNote()">＋ 新增筆記</button><div class="section card" id="noteList"></div></section>
 <section id="worklogs" class="page"><h1 class="page-title">工作紀錄</h1><p class="page-desc">記下每天做了什麼、花了多少時間，累積成可回顧的工作資料。</p><div class="card"><div class="sub">本週紀錄</div><div class="money" id="worklogWeekCount">0 筆</div><div class="sub" id="worklogWeekMinutes">累計 0 分鐘</div><div class="divider"></div><button class="primary" onclick="openWorkLog()">＋ 新增工作紀錄</button></div><div class="section"><div class="section-head"><h2>所有工作紀錄</h2><span class="sub">依日期排序</span></div><div class="card" id="worklogList"></div></div></section>
 <section id="reports" class="page"><h1 class="page-title">每週回顧</h1><p class="page-desc">根據目前已保存的資料產生簡易摘要。</p><div class="card" id="reportContent"></div><button class="primary" style="margin-top:12px" onclick="renderReport()">重新整理報告</button></section>
 </main>
-<nav class="bottom"><div class="nav"><button class="active" data-page="home" onclick="showPage('home',this)"><span>⌂</span>首頁</button><button data-page="tasks" onclick="showPage('tasks',this)"><span>☷</span>任務</button><button data-page="chat" onclick="showPage('chat',this)"><span>✧</span>管家</button><button data-page="marketing" onclick="showPage('marketing',this)"><span>📣</span>行銷</button><button data-page="lifestyle" onclick="showPage('lifestyle',this)"><span>🗓</span>生活</button><button data-page="finance" onclick="showPage('finance',this)"><span>◉</span>財務</button><button data-page="romance" onclick="showPage('romance',this)"><span>💗</span>戀愛腦</button><button data-page="fandom" onclick="showPage('fandom',this)"><span>🎫</span>追星達人</button><button data-page="notes" onclick="showPage('notes',this)"><span>📚</span>資料中心</button><button data-page="worklogs" onclick="showPage('worklogs',this)"><span>▤</span>工作紀錄</button></div></nav>
+<nav class="bottom"><div class="nav"><button class="active" data-page="home" onclick="showPage('home',this)"><span>⌂</span>首頁</button><button data-page="tasks" onclick="showPage('tasks',this)"><span>☷</span>代辦與行事曆</button><button data-page="chat" onclick="showPage('chat',this)"><span>✧</span>管家</button><button data-page="marketing" onclick="showPage('marketing',this)"><span>📣</span>行銷部</button><button data-page="finance" onclick="showPage('finance',this)"><span>◉</span>記帳</button><button data-page="romance" onclick="showPage('romance',this)"><span>💗</span>感情</button><button data-page="fandom" onclick="showPage('fandom',this)"><span>🎫</span>追星</button><button data-page="notes" onclick="showPage('notes',this)"><span>📚</span>筆記</button><button data-page="worklogs" onclick="showPage('worklogs',this)"><span>▤</span>工作紀錄</button></div></nav>
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="sheet" id="sheet"></div></div><div class="toast" id="toast"></div>
 <script>
 // Supabase 前端連線設定：只填 Project URL 與 Publishable key；絕對不要放 Secret/service_role key。
@@ -271,9 +256,9 @@ function openChat(department){
   const desc = document.getElementById('chatPageDesc');
   const intro = {
     '行銷部':'行銷部｜工作紀錄、KOL 行銷與內容規劃',
-    '生活部':'生活部｜任務、行程與日常規劃',
-    '追星達人':'追星達人｜藝人活動、演唱會與售票資訊',
-    '戀愛腦':'戀愛腦｜感情整理、互動分析與回覆建議'
+    '生活部':'生活規劃｜待辦拆解、優先順序與行程安排（由管家統一協助）',
+    '追星達人':'追星｜藝人活動、演唱會與售票資訊',
+    '戀愛腦':'感情｜互動分析與回覆建議'
   };
   title.textContent = department || 'AI 生活管家';
   desc.textContent = (intro[department] || '統一對話入口') + '｜AI 對話模式';
@@ -283,9 +268,9 @@ function openChat(department){
   history.innerHTML = '';
   const greetings = {
     '行銷部':'嗨！這裡是行銷部。可以輸入每日工作紀錄、KOL 行銷任務或內容企劃需求。目前可使用 AI 對話，資料保存請使用專屬紀錄頁面。',
-    '生活部':'嗨！這裡是生活部。可以輸入待辦事項、行程安排或生活規劃需求。目前可使用 AI 對話，資料保存請使用專屬紀錄頁面。',
-    '追星達人':'嗨！這裡是追星達人。可以輸入藝人活動、演唱會、售票資訊或追星行程需求。目前尚未連接即時網路搜尋與通知服務。',
-    '戀愛腦':'嗨！這裡是戀愛腦。可以輸入感情困擾、互動情境或訊息草稿，協助整理思路。目前尚未連接真正的 AI 專家服務。'
+    '生活部':'可以協助拆解代辦、安排優先順序與規劃行程；請從管家統一提出需求。',
+    '追星達人':'嗨！這裡是追星。可以輸入藝人活動、演唱會、售票資訊或追星行程需求。目前尚未連接即時網路搜尋與通知服務。',
+    '戀愛腦':'嗨！這裡是感情。可以輸入感情困擾、互動情境或訊息草稿，協助整理思路。目前尚未連接真正的 AI 專家服務。'
   };
   addBubble('ai', greetings[department] || '嗨！我是妳的生活管家原型。可以輸入待辦、工作紀錄或支出，我會先用基本規則幫妳分類與保存。');
 }
