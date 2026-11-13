@@ -124,7 +124,7 @@
     <div id="romanceRecordList" class="card" style="margin-top:10px"><div class="empty">載入感情紀錄中…</div></div>
   </div>
 </section>
-<section id="chat" class="page"><h1 class="page-title" id="chatPageTitle">AI 生活管家</h1><p class="page-desc" id="chatPageDesc">統一 AI 對話入口｜已連接後端</p><div class="card"><div id="chatHistory"><div class="bubble ai">嗨！我是妳的 AI 生活管家。可以問我工作、生活或日常問題；目前不會自動寫入資料庫。</div></div><div class="chatbox"><input id="chatInput" placeholder="輸入訊息…" onkeydown="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">送出</button></div></div><div class="notice">輸入的對話文字會送至 OpenAI 處理；請勿貼上密碼或公司機密。尚未支援即時搜尋、自動排程與對話雲端保存。</div></section>
+<section id="chat" class="page"><h1 class="page-title" id="chatPageTitle">AI 生活管家</h1><p class="page-desc" id="chatPageDesc">統一 AI 對話入口｜已連接後端</p><div class="card"><div id="chatHistory"><div class="bubble ai">嗨！我是妳的 AI 生活管家。可以問我工作、生活或日常問題；對話會保存於雲端；重要資料仍需你確認後才會新增。</div></div><div class="chatbox"><input id="chatInput" placeholder="輸入訊息…" onkeydown="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">送出</button></div></div><div class="notice">輸入的對話文字會送至 OpenAI 處理；請勿貼上密碼或公司機密。對話會依部門保存於雲端；請勿輸入密碼或公司機密。</div></section>
 <section id="finance" class="page"><h1 class="page-title">記帳</h1><p class="page-desc">快速記帳，掌握每月支出。</p><div class="card"><div class="sub">本月累計支出</div><div class="money" id="monthSpend">NT$ 0</div><div class="divider"></div><button class="primary" onclick="openExpense()">＋ 新增支出</button></div><div class="section"><div class="section-head"><h2>最近紀錄</h2><span class="sub">依新增時間排序</span></div><div class="card" id="expenseList"></div></div></section>
 <section id="notes" class="page"><h1 class="page-title">筆記</h1><p class="page-desc">收納想法、工作知識與重要內容。</p><button class="primary" onclick="openNote()">＋ 新增筆記</button><div class="section card" id="noteList"></div></section>
 <section id="worklogs" class="page"><h1 class="page-title">工作紀錄</h1><p class="page-desc">記下每天做了什麼、花了多少時間，累積成可回顧的工作資料。</p><div class="card"><div class="sub">本週紀錄</div><div class="money" id="worklogWeekCount">0 筆</div><div class="sub" id="worklogWeekMinutes">累計 0 分鐘</div><div class="divider"></div><button class="primary" onclick="openWorkLog()">＋ 新增工作紀錄</button></div><div class="section"><div class="section-head"><h2>所有工作紀錄</h2><span class="sub">依日期排序</span></div><div class="card" id="worklogList"></div></div></section>
@@ -208,6 +208,7 @@ async function showSignedIn(user){
   try{
     await loadCloudData();
     await loadPersonalRecords();
+    await loadSavedChatHistory();
     cloudReady=true;
     renderAll();
     showToast('雲端資料載入完成');
@@ -223,7 +224,7 @@ async function showSignedIn(user){
 }
 async function signIn(){if(!supabaseClient)return authMessage('尚未設定 Supabase 連線資訊。');const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;if(!email||!password)return authMessage('請輸入 Email 和密碼。');authMessage('登入中…');const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)authMessage('登入失敗：'+error.message);else showSignedIn(data.user);}
 async function signUp(){if(!supabaseClient)return authMessage('尚未設定 Supabase 連線資訊。');const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;if(!email||password.length<6)return authMessage('請輸入有效 Email，密碼至少 6 個字元。');authMessage('正在建立帳號…');const {data,error}=await supabaseClient.auth.signUp({email,password});if(error)authMessage('建立帳號失敗：'+error.message);else if(data.session)showSignedIn(data.user);else authMessage('帳號已建立。若尚未自動登入，請使用 Email 和密碼登入。');}
-async function signOut(){if(!supabaseClient)return;cloudReady=false;currentUser=null;loadingUserId=null;const {error}=await supabaseClient.auth.signOut();if(error)showToast('登出失敗：'+error.message);else{document.getElementById('authPanel').classList.remove('hidden');document.getElementById('mainApp').classList.add('hidden');authMessage('已登出。');}}
+async function signOut(){if(!supabaseClient)return;chatLoadedForUser=null;cloudReady=false;currentUser=null;loadingUserId=null;const {error}=await supabaseClient.auth.signOut();if(error)showToast('登出失敗：'+error.message);else{document.getElementById('authPanel').classList.remove('hidden');document.getElementById('mainApp').classList.add('hidden');authMessage('已登出。');}}
 const KEY='mylifeos_v1';let db=load();
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{tasks:[],expenses:[],notes:[],messages:[],worklogs:[]}}catch(e){return{tasks:[],expenses:[],notes:[],messages:[],worklogs:[]}}}
 function id(){return (crypto.randomUUID?crypto.randomUUID():('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&3|8)).toString(16)})))}
@@ -380,10 +381,45 @@ async function requestAI(message,department,conversation){
   if(typeof payload.reply!=='string'||!payload.reply.trim())throw new Error('AI 沒有回傳文字');
   return payload;
 }
+// v17：AI 對話雲端保存與個人長期紀錄
+const CHAT_TARGETS={
+  '生活總管':'chatHistory', '行銷部':'marketingHistory', '生活部':'chatHistory',
+  '追星達人':'fandomHistory', '戀愛腦':'romanceHistory'
+};
+const CHAT_DEPT_FOR_PAGE={marketing:'行銷部',fandom:'追星達人',romance:'戀愛腦'};
+let chatLoadedForUser=null;
+function chatHistoryElement(dept){return document.getElementById(CHAT_TARGETS[dept]||'chatHistory');}
+async function loadSavedChatHistory(){
+  if(!supabaseClient||!currentUser)return;
+  const {data,error}=await supabaseClient.from('ai_chat_messages').select('department,role,content,created_at')
+    .order('created_at',{ascending:true}).limit(500);
+  if(error)throw error;
+  const groups={};
+  (data||[]).forEach(m=>{(groups[m.department] ||= []).push(m);});
+  Object.entries(CHAT_TARGETS).forEach(([dept,id])=>{
+    const el=document.getElementById(id); if(!el)return;
+    const rows=groups[dept]||[];
+    if(!rows.length)return;
+    el.innerHTML='';
+    rows.forEach(m=>appendChatBubble(el,m.role==='user'?'user':'ai',m.content));
+  });
+  chatLoadedForUser=currentUser.id;
+}
+async function saveChatMessage(department,role,content){
+  if(!supabaseClient||!currentUser||!content)return;
+  const {error}=await supabaseClient.from('ai_chat_messages').insert({user_id:currentUser.id,department,role,content:String(content).slice(0,8000)});
+  if(error)throw error;
+}
+function chatConversationFromElement(el){
+  return [...el.querySelectorAll('.bubble')].filter(b=>b.classList.contains('user')||b.classList.contains('ai'))
+    .map(b=>({role:b.classList.contains('user')?'user':'assistant',content:b.textContent}))
+    .filter(m=>m.content&&m.content!=='AI 正在思考…').slice(-10);
+}
+
 let pendingAction=null;
-function actionLabel(a){return ({create_task:'新增待辦',create_expense:'新增支出',create_worklog:'新增工作紀錄',create_note:'新增筆記'})[a.type]||'新增資料';}
+function actionLabel(a){return ({create_task:'新增待辦',create_expense:'新增支出',create_worklog:'新增工作紀錄',create_note:'新增筆記',create_personal_record:'新增個人紀錄'})[a.type]||'新增資料';}
 function showActionProposal(history,action){
-  if(!action||!['create_task','create_expense','create_worklog','create_note'].includes(action.type))return;
+  if(!action||!['create_task','create_expense','create_worklog','create_note','create_personal_record'].includes(action.type))return;
   pendingAction=action;
   const card=document.createElement('div');card.className='bubble ai';
   const title=document.createElement('b');title.textContent='資料草稿｜'+actionLabel(action);card.appendChild(title);
@@ -393,6 +429,7 @@ function showActionProposal(history,action){
   if(action.type==='create_expense'){lines.push('項目：'+(action.title||''),'金額：NT$ '+(action.amount||''),'分類：'+(action.category||'其他'),'日期：'+(action.date||today()));}
   if(action.type==='create_worklog'){lines.push('工作內容：'+(action.content||''),'日期：'+(action.date||today()),'時間：'+(action.minutes||0)+' 分鐘');}
   if(action.type==='create_note'){lines.push('標題：'+(action.title||''),'內容：'+(action.content||''));}
+  if(action.type==='create_personal_record'){lines.push('分類：'+(action.record_type||'一般紀錄'),'標題：'+(action.title||''),'相關人物：'+(action.related_person||'未填'),'日期：'+(action.event_date||'未設定'),'內容：'+(action.content||''));}
   detail.textContent=lines.join('\n');card.appendChild(detail);
   const hint=document.createElement('div');hint.className='notice';hint.textContent='確認後才會寫入你的雲端資料；取消則不會保存。';card.appendChild(hint);
   const row=document.createElement('div');row.className='actions';row.style.marginTop='10px';
@@ -416,6 +453,12 @@ async function commitPendingAction(card){
     }else if(a.type==='create_note'){
       if(!a.content&&!a.title)return showToast('筆記內容不能空白');
       db.notes.unshift({id:id(),title:String(a.title||'未命名筆記').slice(0,150),body:String(a.content||'').slice(0,5000),date:today()});
+    }else if(a.type==='create_personal_record'){
+      const dept=a.record_department;
+      if(!['fandom','romance'].includes(dept)||!a.title||!a.content)return showToast('個人紀錄資料不完整');
+      const payload={user_id:currentUser.id,department:dept,record_type:String(a.record_type||'一般紀錄').slice(0,60),title:String(a.title).slice(0,150),related_person:String(a.related_person||'').slice(0,100)||null,event_date:/^\d{4}-\d{2}-\d{2}$/.test(a.event_date||'')?a.event_date:null,content:String(a.content).slice(0,10000),updated_at:new Date().toISOString()};
+      const {error}=await supabaseClient.from('personal_records').insert(payload);if(error)throw error;
+      await loadPersonalRecords();pendingAction=null;card.remove();showToast('個人紀錄已新增並同步雲端');return;
     }
     pendingAction=null;card.remove();localStorage.setItem(KEY,JSON.stringify(db));renderAll();await pushCloudData();showToast('已新增並同步雲端');
   }catch(e){console.error(e);showToast('新增失敗：'+(e.message||'請稍後再試'));}
@@ -425,11 +468,18 @@ async function sendAIFrom(inputId,historyId,department,goToChat=false){
   const input=document.getElementById(inputId);const message=input.value.trim();if(!message)return;
   if(message.length>4000){showToast('單次訊息不可超過 4000 字');return;}
   const history=document.getElementById(historyId);input.value='';if(goToChat)showPage('chat');
-  const prior=[...history.querySelectorAll('.bubble')].filter(b=>b.classList.contains('user')||b.classList.contains('ai')).map(b=>({role:b.classList.contains('user')?'user':'assistant',content:b.textContent})).filter(m=>m.content&&m.content!=='AI 正在思考…').slice(-10);
+  if(chatLoadedForUser!==currentUser?.id){try{await loadSavedChatHistory();}catch(e){showToast('讀取對話紀錄失敗：'+e.message);return;}}
+  const prior=chatConversationFromElement(history);
   appendChatBubble(history,'user',message);const waiting=appendChatBubble(history,'ai','AI 正在思考…');aiPending=true;
-  try{const result=await requestAI(message,department,[...prior,{role:'user',content:message}]);waiting.textContent=result.reply;if(result.action)showActionProposal(history,result.action);}
-  catch(e){waiting.textContent='連線失敗：'+(e.message||'請稍後再試')+'\n（沒有新增任何資料。）';}
-  finally{aiPending=false;history.scrollTop=history.scrollHeight;}
+  try{
+    await saveChatMessage(department,'user',message);
+    const result=await requestAI(message,department,prior);
+    waiting.textContent=result.reply;
+    await saveChatMessage(department,'assistant',result.reply);
+    if(result.action)showActionProposal(history,result.action);
+  }catch(e){
+    waiting.textContent='連線或保存失敗：'+(e.message||'請稍後再試')+'\n（請確認雲端狀態；若訊息未保存，可重新送出。）';
+  }finally{aiPending=false;history.scrollTop=history.scrollHeight;}
 }
 function sendDepartment(page){return sendAIFrom(page+'Input',page+'History',AI_DEPARTMENTS[page]||'生活總管');}
 function sendChat(){return sendAIFrom('chatInput','chatHistory','生活總管');}
