@@ -248,7 +248,10 @@ async function pushCloudData(){
     worklogs.length?supabaseClient.from('work_logs').upsert(worklogs,{onConflict:'id'}):Promise.resolve({error:null})
   ]);
   for(const r of writes) if(r.error) throw r.error;
-}function money(n){return 'NT$ '+Number(n||0).toLocaleString('zh-TW')}function today(){let d=new Date();return d.toISOString().slice(0,10)}function showToast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}let activeDepartment = '';
+}function money(n){return 'NT$ '+Number(n||0).toLocaleString('zh-TW')}
+function taipeiDateParts(date=new Date()){const p=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);const o={};p.forEach(x=>{if(x.type!=='literal')o[x.type]=x.value});return o}
+function today(){const p=taipeiDateParts();return `${p.year}-${p.month}-${p.day}`}
+function taipeiDateTime(){return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(new Date()).replace(' ','T')}function showToast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}let activeDepartment = '';
 function openChat(department){
   activeDepartment = department || '';
   showPage('chat');
@@ -296,7 +299,7 @@ async function requestAI(message,department,conversation){
   const response=await fetch(SUPABASE_URL+'/functions/v1/ai-chat',{
     method:'POST',
     headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY,'Authorization':'Bearer '+session.access_token},
-    body:JSON.stringify({message,department,conversation})
+    body:JSON.stringify({message,department,conversation,client_datetime:taipeiDateTime(),timezone:'Asia/Taipei'})
   });
   let payload={};
   try{payload=await response.json();}catch(e){throw new Error('伺服器沒有回傳有效資料');}
